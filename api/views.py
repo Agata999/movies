@@ -10,5 +10,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class MovieViewSet(viewsets.ModelViewSet):
-    queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+    def get_queryset(self):
+        movies = Movie.objects.filter(premiere=True)
+        return movies
+
