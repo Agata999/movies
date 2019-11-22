@@ -34,3 +34,16 @@ class MovieViewSet(viewsets.ModelViewSet):
         else:
             return HttpResponseNotAllowed('Not allowed')
 
+    def update(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            movie = self.get_object()
+            movie.title = request.data['title']
+            movie.description = request.data['description']
+            movie.premiere = request.data['premiere']
+            movie.save()
+            serializer = MovieSerializer(movie, many=False)
+            return Response(serializer.data)
+        else:
+            return HttpResponseNotAllowed('Not allowed')
+
+
