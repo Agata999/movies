@@ -46,4 +46,10 @@ class MovieViewSet(viewsets.ModelViewSet):
         else:
             return HttpResponseNotAllowed('Not allowed')
 
-
+    def destroy(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            movie = self.get_object()
+            movie.delete()
+            return Response('Movie deleted')
+        else:
+            return HttpResponseNotAllowed('Not allowed')
