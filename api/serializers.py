@@ -12,7 +12,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['title', 'description', 'premiere']
+        fields = ['title', 'description', 'premiere', 'year', 'rating']
 
 
 class MovieMiniSerializer(serializers.ModelSerializer):
