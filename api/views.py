@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseNotAllowed
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .serializers import UserSerializer, MovieSerializer, MovieMiniSerializer
@@ -16,7 +17,8 @@ class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
 
     def get_queryset(self):
-        movies = Movie.objects.filter(premiere=True)
+        # movies = Movie.objects.filter(premiere=True)
+        movies = Movie.objects.all()
         return movies
 
     def list(self, request, *args, **kwargs):
@@ -53,3 +55,11 @@ class MovieViewSet(viewsets.ModelViewSet):
             return Response('Movie deleted')
         else:
             return HttpResponseNotAllowed('Not allowed')
+
+    @action(detail=True)
+    def premiere(self, request, **kwargs):
+        movie = self.get_object()
+        movie.premiere = True
+        movie.save()
+        serializer = MovieSerializer(movie, many=False)
+        return Response(serializer.data)
