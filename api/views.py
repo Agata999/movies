@@ -4,8 +4,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .serializers import UserSerializer, MovieSerializer, MovieMiniSerializer
-from .models import Movie
+from .serializers import UserSerializer, MovieSerializer, MovieMiniSerializer, ActorSerializer
+from .models import Movie, Actor
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -63,3 +63,8 @@ class MovieViewSet(viewsets.ModelViewSet):
         movie.save()
         serializer = MovieSerializer(movie, many=False)
         return Response(serializer.data)
+
+
+class ActorViewSet(viewsets.ModelViewSet):
+    queryset = Actor.objects.all()
+    serializer_class = ActorSerializer
