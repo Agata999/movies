@@ -26,3 +26,9 @@ class ExtraInfo(models.Model):
     }
     genre = models.PositiveSmallIntegerField(choices=GENRES)
     duration = models.PositiveSmallIntegerField()
+
+
+class Review(models.Model):
+    description = models.TextField()
+    stars = models.PositiveSmallIntegerField()
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
