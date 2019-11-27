@@ -37,9 +37,9 @@ class MovieMiniSerializer(serializers.ModelSerializer):
 
 
 class ActorSerializer(serializers.ModelSerializer):
-    movies = MovieMiniSerializer(many=True)
+    movies = MovieMiniSerializer(many=True, read_only=True)
 
     class Meta:
         model = Actor
-        fields = ['first_name', 'last_name', 'movies']
+        fields = ['id', 'first_name', 'last_name', 'movies']
 
