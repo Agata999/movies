@@ -19,6 +19,14 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['description', 'stars', 'movie']
+        depth = 1
+
+    def update(self, instance, validated_data):
+        instance.description = validated_data.get('description', instance.description)
+        instance.stars = validated_data.get('stars', instance.stars)
+        instance.save()
+
+        return instance
 
 
 class MovieSerializer(serializers.ModelSerializer):
