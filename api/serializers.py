@@ -18,7 +18,7 @@ class ExtraInfoSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['description', 'stars']
+        fields = ['description', 'stars', 'movie']
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ['title', 'description', 'premiere', 'year', 'rating', 'extra_info', 'reviews']
+        fields = '__all__'
 
 
 class MovieMiniSerializer(serializers.ModelSerializer):
