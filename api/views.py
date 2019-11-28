@@ -27,15 +27,15 @@ class MovieViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
-        # if request.user.is_superuser:
-        movie = Movie.objects.create(title=request.data['title'],
-                                     description=request.data['description'],
-                                     premiere=request.data['premiere'],
-                                     year=request.data['year'])
-        serializer = MovieMiniSerializer(movie, many=False)
-        return Response(serializer.data)
-        # else:
-        #     return HttpResponseNotAllowed('Not allowed')
+        if request.user.is_superuser:
+            movie = Movie.objects.create(title=request.data['title'],
+                                         description=request.data['description'],
+                                         premiere=request.data['premiere'],
+                                         year=request.data['year'])
+            serializer = MovieMiniSerializer(movie, many=False)
+            return Response(serializer.data)
+        else:
+            return HttpResponseNotAllowed('Not allowed')
 
     def update(self, request, *args, **kwargs):
         if request.user.is_superuser:
@@ -43,6 +43,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             movie.title = request.data['title']
             movie.description = request.data['description']
             movie.premiere = request.data['premiere']
+            movie.year = request.data['year']
             movie.save()
             serializer = MovieSerializer(movie, many=False)
             return Response(serializer.data)
