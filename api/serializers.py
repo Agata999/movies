@@ -36,6 +36,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
+        read_only_fields = ('extra_info', 'reviews')
 
 
 class MovieMiniSerializer(serializers.ModelSerializer):
