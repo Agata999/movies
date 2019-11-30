@@ -15,16 +15,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
+    filterset_fields = ['title',]
+    search_fields = ['title', 'description']
+    ordering_fields = '__all__'
 
     def get_queryset(self):
-        # movies = Movie.objects.filter(premiere=True)
-        movies = Movie.objects.all()
+        movies = Movie.objects.filter(premiere=True)
         return movies
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = MovieMiniSerializer(queryset, many=True)
-        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
         if request.user.is_superuser:
