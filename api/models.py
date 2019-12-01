@@ -6,10 +6,10 @@ class Movie(models.Model):
     description = models.TextField(max_length=256)
     premiere = models.BooleanField(default=False)
     year = models.SmallIntegerField()
-    rating = models.DecimalField(max_digits=4, decimal_places=2,
-                                 null=True, blank=True)
-    extra_info = models.OneToOneField('ExtraInfo', on_delete=models.CASCADE,
-                                      null=True, blank=True)
+    rating = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    extra_info = models.OneToOneField(
+        "ExtraInfo", on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -17,12 +17,12 @@ class Movie(models.Model):
 
 class ExtraInfo(models.Model):
     GENRES = {
-        (0, 'undefined'),
-        (1, 'comedy'),
-        (2, 'thriller'),
-        (3, 'drama'),
-        (4, 'horror'),
-        (5, 'sci-fi')
+        (0, "undefined"),
+        (1, "comedy"),
+        (2, "thriller"),
+        (3, "drama"),
+        (4, "horror"),
+        (5, "sci-fi"),
     }
     genre = models.PositiveSmallIntegerField(choices=GENRES)
     duration = models.PositiveSmallIntegerField()
@@ -31,7 +31,7 @@ class ExtraInfo(models.Model):
 class Review(models.Model):
     description = models.TextField()
     stars = models.PositiveSmallIntegerField()
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
 
 
 class Actor(models.Model):

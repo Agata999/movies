@@ -6,24 +6,24 @@ from .models import Movie, ExtraInfo, Review, Actor
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email']
+        fields = ["url", "username", "email"]
 
 
 class ExtraInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtraInfo
-        fields = ['genre', 'duration']
+        fields = ["genre", "duration"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['description', 'stars', 'movie']
+        fields = ["description", "stars", "movie"]
         depth = 1
 
     def update(self, instance, validated_data):
-        instance.description = validated_data.get('description', instance.description)
-        instance.stars = validated_data.get('stars', instance.stars)
+        instance.description = validated_data.get("description", instance.description)
+        instance.stars = validated_data.get("stars", instance.stars)
         instance.save()
 
         return instance
@@ -35,14 +35,14 @@ class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = '__all__'
-        read_only_fields = ('extra_info', 'reviews')
+        fields = "__all__"
+        read_only_fields = ("extra_info", "reviews")
 
 
 class MovieMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'premiere']
+        fields = ["id", "title", "premiere"]
 
 
 class ActorSerializer(serializers.ModelSerializer):
@@ -50,5 +50,4 @@ class ActorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Actor
-        fields = ['id', 'first_name', 'last_name', 'movies']
-
+        fields = ["id", "first_name", "last_name", "movies"]
