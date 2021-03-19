@@ -4,7 +4,7 @@ black==19.10b0
 Click==7.0
 Django==2.2.7
 django-filter==2.2.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 pathspec==0.6.0
 pytz==2019.3
 regex==2019.11.1
